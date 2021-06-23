@@ -1,5 +1,4 @@
 -- DROP TABLE users IF EXISTS;
-
 CREATE TABLE users (
   id INTEGER PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
@@ -8,7 +7,6 @@ CREATE TABLE users (
 );
 
 -- DROP TABLE properties IF EXISTS; 
-
 CREATE properties(
 id INTEGER PRIMARY KEY NOT NULL,
 owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -30,7 +28,6 @@ active BOOLEAN
 
 
 -- DROP TABLE property_reviews;
-
 CREATE TABLE property_reviews (
 id INTEGER PRIMARY KEY NOT NULL,
 guest_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -41,7 +38,6 @@ message TEXT
 );
 
 -- DROP TABLE reservation;
-
 CREATE TABLE reservation(
   id INTEGER PRIMARY KEY NOT NULL,
   start_date DATE NOT NULL,
