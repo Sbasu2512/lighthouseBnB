@@ -2,10 +2,12 @@ DROP TABLE users ;
 
 CREATE TABLE users (
   id INTEGER PRIMARY KEY NOT NULL,
-  name VARCHAR(255),
-  email VARCHAR(255),
-  password VARCHAR(255) 
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL 
 );
+
+
 
 DROP TABLE property_reviews;
 
@@ -16,4 +18,14 @@ property_id INTEGER NOT NULL REFERENCES properties(id) ON DELETE CASCADE,
 reservation_id INTEGER NOT NULL REFERENCES reservation(id) ON DELETE CASCADE,
 rating SMALLINT,
 message TEXT
+);
+
+DROP TABLE reservation;
+
+CREATE TABLE reservation(
+  id INTEGER PRIMARY KEY NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  property_id INTEGER NOT NULL REFERENCES properties(id) ON DELETE CASCADE,
+  guest_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
