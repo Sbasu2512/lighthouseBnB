@@ -58,12 +58,12 @@ exports.getUserWithEmail = getUserWithEmail;
 const getUserWithId = function (id) {
   const queryString = `SELECT * FROM users WHERE id = $1 `;
   const value = [id];
-
+console.log(id);
   return pool
     .query(queryString, value)
     .then((result) => {
       console.log("fetching userwithid.... 😎", result.rows);
-      return result.rows;
+      return result.rows[0];
     })
     // .catch((err) => {
     //   console.log("Something went wrong 😣 we will fix it shortly 🆒", err);

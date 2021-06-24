@@ -5,6 +5,7 @@ $(() => {
   let currentUser = null;
   function updateHeader(user) {
     currentUser = user;
+    console.log(user);
     $pageHeader.find("#page-header__user-links").remove();
     let userLinks;
 
@@ -43,6 +44,7 @@ $(() => {
   getMyDetails()
     .then(function( json ) {
     updateHeader(json.user);
+    
   });
 
   $("header").on("click", '.my_reservations_button', function() {
