@@ -5,7 +5,6 @@ $(() => {
   let currentUser = null;
   function updateHeader(user) {
     currentUser = user;
-    console.log(user);
     $pageHeader.find("#page-header__user-links").remove();
     let userLinks;
 
