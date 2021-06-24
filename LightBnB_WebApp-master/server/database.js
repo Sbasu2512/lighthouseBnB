@@ -31,7 +31,7 @@ const getUserWithEmail = function(email) {
     .query(queryString, [email])
     .then((result) => {
      
-        console.log("fetching.... 😎", result.rows);
+        console.log("fetching userwithemail.... 😎", result.rows);
         return result.rows[0] || null;
     })
     // .catch((err) => {
@@ -59,10 +59,10 @@ const getUserWithId = function (id) {
   const queryString = `SELECT * FROM users WHERE id = $1 `;
   const value = [id];
 
-  pool
+  return pool
     .query(queryString, value)
     .then((result) => {
-      console.log("fetching.... 😎", result.rows);
+      console.log("fetching userwithid.... 😎", result.rows);
       return result.rows;
     })
     // .catch((err) => {
@@ -80,13 +80,18 @@ exports.getUserWithId = getUserWithId;
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser =  function(user) {
-  const queryString = `INSERT INTO users(name, email, password)`;
-  pool
-  .query(queryString)
+  console.log("user object has: ",user);
+  const values = [user.name , user.email, user.password];
+  const queryString = `INSERT INTO users(name, email, password) VALUES($1, $2 , $3) RETURNING *`;
+  //return the promise itself
+  return pool
+  .query(queryString, values)
   .then((result)=>{
-    console.log(result.rows);
+   // console.log("result is: ",result.rows);
+    //returning the resolve of this promise
     return result.rows;
   });
+  
   
   // const userId = Object.keys(users).length + 1;
   // user.id = userId;
