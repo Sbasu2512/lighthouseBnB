@@ -25,7 +25,16 @@ pool.connect().then(()=>{
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function(email) {
-  
+  const queryString = `SELECT name FROM users WHERE email LIKE $1`;
+  const limit = ['email'];
+  return pool
+  .query(queryString, limit)
+  .then((result)=>{
+    console.log('fetching.... 😎',result.rows);
+  })
+  .catch((err)=>{
+    console.log('Something went wrong 😣 we will fix it shortly 🆒', err);
+  });
   // let user;
   // for (const userId in users) {
   //   user = users[userId];
