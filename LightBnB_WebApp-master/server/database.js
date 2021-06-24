@@ -11,7 +11,7 @@ const pool = new Pool({
 })
 
 pool.connect().then(()=>{
-  console.log("connected");
+  console.log("connected 🥳🥳🥳🥳🥳🥳");
 }).catch((err)=>{
   console.log(err);
 });
@@ -26,7 +26,8 @@ pool.connect().then(()=>{
  */
 const getUserWithEmail = function(email) {
   const queryString = `SELECT name FROM users WHERE email LIKE $1`;
-  const limit = ["email"];
+  const limit = [email];
+  
   return pool
     .query(queryString, limit)
     .then((result) => {
@@ -57,7 +58,7 @@ exports.getUserWithEmail = getUserWithEmail;
  */
 const getUserWithId = function (id) {
   const queryString = `SELECT name FROM users WHERE id = $1 `;
-  const value = ["id"];
+  const value = [id];
 
   pool
     .query(queryString, value)
