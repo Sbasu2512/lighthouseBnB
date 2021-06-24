@@ -26,15 +26,17 @@ pool.connect().then(()=>{
  */
 const getUserWithEmail = function(email) {
   const queryString = `SELECT name FROM users WHERE email LIKE $1`;
-  const limit = ['email'];
+  const limit = ["email"];
   return pool
-  .query(queryString, limit)
-  .then((result)=>{
-    console.log('fetching.... 😎',result.rows);
-  })
-  .catch((err)=>{
-    console.log('Something went wrong 😣 we will fix it shortly 🆒', err);
-  });
+    .query(queryString, limit)
+    .then((result) => {
+      if (result.row) {
+        console.log("fetching.... 😎", result.rows);
+      }
+    })
+    .catch((err) => {
+      console.log("Something went wrong 😣 we will fix it shortly 🆒", err);
+    });
   // let user;
   // for (const userId in users) {
   //   user = users[userId];
@@ -53,9 +55,21 @@ exports.getUserWithEmail = getUserWithEmail;
  * @param {string} id The id of the user.
  * @return {Promise<{}>} A promise to the user.
  */
-const getUserWithId = function(id) {
-  return Promise.resolve(users[id]);
-}
+const getUserWithId = function (id) {
+  const queryString = `SELECT name FROM users WHERE id = $1 `;
+  const value = ["id"];
+
+  pool
+    .query(queryString, value)
+    .then((result) => {
+      console.log("fetching.... 😎", result.rows);
+    })
+    .catch((err) => {
+      console.log("Something went wrong 😣 we will fix it shortly 🆒", err);
+    });
+
+  //return Promise.resolve(users[id]);
+};
 exports.getUserWithId = getUserWithId;
 
 
