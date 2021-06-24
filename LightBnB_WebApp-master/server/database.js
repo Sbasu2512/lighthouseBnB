@@ -25,19 +25,18 @@ pool.connect().then(()=>{
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function(email) {
-  const queryString = `SELECT name FROM users WHERE email LIKE $1`;
-  const limit = [email];
-  
+  const queryString = `SELECT * FROM users WHERE email LIKE $1`;
+  //const limit = [email];
   return pool
-    .query(queryString, limit)
+    .query(queryString, [email])
     .then((result) => {
-      if (result.row) {
+     
         console.log("fetching.... 😎", result.rows);
-      }
+        return result.rows[0] || null;
     })
-    .catch((err) => {
-      console.log("Something went wrong 😣 we will fix it shortly 🆒", err);
-    });
+    // .catch((err) => {
+    //   console.log("Something went wrong 😣 we will fix it shortly 🆒", err);
+    // });
   // let user;
   // for (const userId in users) {
   //   user = users[userId];
@@ -57,17 +56,18 @@ exports.getUserWithEmail = getUserWithEmail;
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function (id) {
-  const queryString = `SELECT name FROM users WHERE id = $1 `;
+  const queryString = `SELECT * FROM users WHERE id = $1 `;
   const value = [id];
 
   pool
     .query(queryString, value)
     .then((result) => {
       console.log("fetching.... 😎", result.rows);
+      return result.rows;
     })
-    .catch((err) => {
-      console.log("Something went wrong 😣 we will fix it shortly 🆒", err);
-    });
+    // .catch((err) => {
+    //   console.log("Something went wrong 😣 we will fix it shortly 🆒", err);
+    // });
 
   //return Promise.resolve(users[id]);
 };
@@ -113,11 +113,12 @@ exports.getAllReservations = getAllReservations;
   return pool
     .query(`SELECT * FROM properties LIMIT $1`, [limit])
     .then((result) => {
-      console.log(result.rows);
-    })
-    .catch((err) => {
-      console.log(err.message);
+      // console.log(result.rows);
+      return result.rows;
     });
+    // .catch((err) => {
+    //   console.log(err.message);
+    // });
 };
 exports.getAllProperties = getAllProperties;
 
