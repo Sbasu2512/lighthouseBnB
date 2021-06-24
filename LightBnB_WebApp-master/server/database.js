@@ -10,11 +10,11 @@ const pool = new Pool({
   database: 'lighthousebnb'
 })
 
-// pool.connect().then(()=>{
-//   console.log("connected");
-// }).catch((err)=>{
-//   console.log(err);
-// });
+pool.connect().then(()=>{
+  console.log("connected");
+}).catch((err)=>{
+  console.log(err);
+});
 
 
 /// Users
@@ -25,16 +25,17 @@ const pool = new Pool({
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function(email) {
-  let user;
-  for (const userId in users) {
-    user = users[userId];
-    if (user.email.toLowerCase() === email.toLowerCase()) {
-      break;
-    } else {
-      user = null;
-    }
-  }
-  return Promise.resolve(user);
+  
+  // let user;
+  // for (const userId in users) {
+  //   user = users[userId];
+  //   if (user.email.toLowerCase() === email.toLowerCase()) {
+  //     break;
+  //   } else {
+  //     user = null;
+  //   }
+  // }
+  // return Promise.resolve(user);
 }
 exports.getUserWithEmail = getUserWithEmail;
 
